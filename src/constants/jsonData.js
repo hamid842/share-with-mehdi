@@ -1,4 +1,4 @@
-export const data = [
+const data = [
   {
     id: "8129f882-7de5-4698-9d2c-4e483a97050c",
     code: "CAT-00002",
@@ -92,9 +92,11 @@ export const data = [
   {
     id: "11bd87b3-6e83-4c99-b3c1-b69ad5395627",
     code: "CAT-00001",
-    name: "Category1",
+    name: "CATEGORY-1",
     createdAt: "1970-01-01T00:00:00Z",
     productCategoryId: "92cef44b-b612-42ec-a183-652404cac0b0",
     productCategoryIds: []
   }
 ];
+
+export { data };

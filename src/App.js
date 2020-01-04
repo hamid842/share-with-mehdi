@@ -1,36 +1,50 @@
-import React, { Component } from "react";
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import TreeView from "@material-ui/lab/TreeView";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import TreeItem from "@material-ui/lab/TreeItem";
 import { data } from "./constants/jsonData";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        {data.map(item => {
-          return (
-            <div>
-              <h6>{item.code}</h6>
-              <h6>{item.name}</h6>
-              <h6>{item.createdAt}</h6>
-              <h6>{item.productCategoryId}</h6>
-              <ul>
-                {item.productCategoryIds.map(element => {
-                  return (
-                    <div>
-                      <h6>{element.code}</h6>
-                      <h6>{element.name}</h6>
-                      <h6>{element.createdAt}</h6>
-                      <h6>{element.productCategoryId}</h6>
-                      <h6>{element.productCategoryIds}</h6>
-                    </div>
-                  );
-                })}
-              </ul>
-            </div>
-          );
-        })}
-      </div>
-    );
+const useStyles = makeStyles({
+  root: {
+    height: 216,
+    flexGrow: 1,
+    maxWidth: 400
   }
-}
+});
 
-export default App;
+export default function FileSystemNavigator() {
+  const classes = useStyles();
+
+  return (
+    <>
+      {data.map(item => {
+        return (
+          <TreeView
+            key={item.id}
+            className={classes.root}
+            defaultCollapseIcon={<ExpandMoreIcon />}
+            defaultExpandIcon={<ChevronRightIcon />}
+          >
+            <TreeItem nodeId="1" label={item.name}>
+              <TreeItem nodeId="2" label={item.code} />
+              <TreeItem nodeId="3" label={item.createdAt} />
+              <TreeItem nodeId="4" label={item.productCategoryId} />
+              {item.productCategoryIds.map(el => {
+                return (
+                  <>
+                    <TreeItem nodeId="5" label={el.name}>
+                      <TreeItem nodeId="6" label={el.code} />
+                      <TreeItem nodeId="7" label={el.createdAt} />
+                    </TreeItem>
+                  </>
+                );
+              })}
+            </TreeItem>
+          </TreeView>
+        );
+      })}
+    </>
+  );
+}
